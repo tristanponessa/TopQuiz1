@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 System.out.println("clicked");
                 System.out.println(QuestionFactory.dialogue);
+                //
             }
         });
 
