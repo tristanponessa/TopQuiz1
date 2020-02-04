@@ -4,9 +4,9 @@ import org.ini4j.Wini;
 import java.io.File;
 
 
-class QuestionFactory {
+public class QuestionFactory {
 
-    static Wini dialogue;
+    public static Wini dialogue;
 
     static {
 

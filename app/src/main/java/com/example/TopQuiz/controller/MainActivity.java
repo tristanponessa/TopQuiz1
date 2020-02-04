@@ -1,5 +1,6 @@
 package com.example.TopQuiz.controller;
 
+import com.example.TopQuiz.model.*;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 System.out.println("clicked");
-                System.out.println(Question)
+                System.out.println(QuestionFactory.dialogue);
             }
         });
 
