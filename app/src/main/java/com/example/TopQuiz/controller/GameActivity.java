@@ -28,6 +28,7 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         System.out.println("HI");
+        //System.out.println("Bye");
     }
 
 
