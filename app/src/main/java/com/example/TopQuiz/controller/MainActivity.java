@@ -3,6 +3,7 @@ package com.example.TopQuiz.controller;
 import com.example.TopQuiz.model.*;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -31,6 +32,9 @@ public class MainActivity extends AppCompatActivity {
 
         mPlayButton.setEnabled(false);
 
+        Intent gameActivity = new Intent(MainActivity.this, GameActivity.class);
+        startActivity(gameActivity);
+
         mNameInput.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -54,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 System.out.println("clicked");
                 System.out.println(QuestionFactory.dialogue);
+
+                Intent gameActivity = new Intent(MainActivity.this, GameActivity.class);
+                startActivity(gameActivity);
                 //
             }
         });
