@@ -1,7 +1,5 @@
 package com.example.TopQuiz.controller;
 
-
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
@@ -39,24 +37,26 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        //mPlayButton1 = (Button) findViewById(R.id.activity_main_play_btn);
-        //mPlayButton2 = (Button) findViewById(R.id.activity_main_play_btn);
-        /*mPlayButton1 = new Button(this);
+        //init for all
+        LinearLayout parent_layout = findViewById(R.id.dynamicContainer);
+        parent_layout.setOrientation(LinearLayout.VERTICAL);
+        int h = LinearLayout.LayoutParams.FILL_PARENT;
+        int w = LinearLayout.LayoutParams.FILL_PARENT;
+        ViewGroup.LayoutParams zl = new LinearLayout.LayoutParams(h, w);
+        parent_layout.setLayoutParams(zl);
 
-        mPlayButton1.setText("Push Me");
+        TextView t = create_dynamic_textview("n");
 
-        LinearLayout ll = (LinearLayout)findViewById(R.id.layout);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        ll.addView(mPlayButton1, lp);*/
-        LinearLayout relativeLayout = findViewById(R.id.dynamicContainer);
+        Button b1 = create_dynamic_button("n");
+        Button b2 = create_dynamic_button("n");
 
-        TextView t = create_dynamic_textview("The Question?");
+        parent_layout.addView(t);
 
-        int nb_questions = 3;
-       // Button button = create_dynamic_button("dynamic", t.getId());
-        //Button button2 = create_dynamic_button("dynamic2");
+        parent_layout.addView(b1);
+        parent_layout.addView(b2);
+        setContentView(parent_layout);
 
-        //int tid = t.getId();
+        /*
         ArrayList<Button> bs = new ArrayList<Button>();
 
         String btag = "00";
@@ -72,79 +72,68 @@ public class GameActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
             }
         });*/
-        if (relativeLayout != null){
+        /*if (parent_layout != null){
 
-            relativeLayout.addView(t);
-            for (Button b : bs)
-                relativeLayout.addView(b);
-        }
+            parent_layout.addView(t);
+            parent_layout.addView(x);
+
+            /*for (Button b : bs)
+                parent_layout.addView(b);
+        }*/
 
     }
 
-    private TextView create_dynamic_textview(String bt_msg) {
-        TextView t = new TextView(this);
+    LinearLayout layout_setup() {
 
+        LinearLayout parent_layout = findViewById(R.id.dynamicContainer);
+        parent_layout.setOrientation(LinearLayout.VERTICAL);
+        int h = LinearLayout.LayoutParams.FILL_PARENT;
+        int w = LinearLayout.LayoutParams.FILL_PARENT;
+        ViewGroup.LayoutParams zl = new LinearLayout.LayoutParams(h, w);
+        parent_layout.setLayoutParams(zl);
+        return parent_layout;
+    }
+
+    //stock all widgets in a list
+    /*
+    void display_widgets(LinearLayout parent_layout) {
+        parent_layout.addView(t);
+        parent_layout.addView(q);
+        setContentView(parent_layout);
+    }*/
+
+    private TextView create_dynamic_textview(String txt_msg) {
+
+        TextView titleView = new TextView(this);
         int h = ViewGroup.LayoutParams.WRAP_CONTENT;
         int w = ViewGroup.LayoutParams.MATCH_PARENT;
-
         LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(w, h);
         params1.setMargins(0,50,0,200);
-        //params1.addRule(LinearLayout.ALIGN_PARENT_LEFT, LinearLayout.TRUE);
-        int sec_id = ViewCompat.generateViewId();
-        t.setId(sec_id);
-        //t.setTag(sec_id, "zquest");
-        t.setLayoutParams(params1);
-        t.setGravity(Gravity.CENTER);
-        t.setTextColor(Color.GREEN);
-        t.setText(bt_msg);
-
-        //t.setTextColor("gold");
-
-        return t;
+        titleView.setLayoutParams(params1);
+        titleView.setGravity(Gravity.CENTER);
+        titleView.setTextColor(Color.GREEN);
+        titleView.setText("txt_msg");
+        return titleView;
     }
-//https://abhiandroid.com/ui/dynamic-relativelayout-params-programmatically.html
-    private Button create_dynamic_button(String bt_msg, int last_bt_id) {
-        Button button = new Button(this);
-        //button.setTag(last_bt_id);
 
-        //LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams)button.getLayoutParams();
-        /*layoutParams.addRule(LinearLayout.BELOW, button.getId());
-        layoutParams.addRule(LinearLayout.ALIGN_LEFT, button.getId());
-        button.setLayoutParams(layoutParams);*/
+    private Button create_dynamic_button(String txt_msg) {
 
+        Button b = new Button(this);
         int h = ViewGroup.LayoutParams.WRAP_CONTENT;
         int w = ViewGroup.LayoutParams.MATCH_PARENT;
-
         LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(w, h);
-
-        //TextView = this.findViewWithTag("zquest");
-        //params1.addRule(LinearLayout.BELOW, last_bt_id);
-        button.setLayoutParams(params1);
-        button.setGravity(Gravity.CENTER);//corresponds ot text
-        button.setText(bt_msg);
-
-
-        return button;
+        b.setLayoutParams(params1);
+        b.setGravity(Gravity.CENTER);//corresponds ot text
+        b.setText("txt_msg");
+        return b;
     }
-/*
-    public void test() {
-        Button button;
-        TextView textView;
-        LinearLayout relativeLayout;
 
-        relativeLayout = findViewById(R.id.a);
-        textView = findViewById(R.id.b);
-        button = findViewById(R.id.c);
+    /*private Button create_dynamic_button(String bt_msg) {
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) textView.getLayoutParams();
-                layoutParams.addRule(LinearLayout.BELOW, button.getId());
-                layoutParams.addRule(LinearLayout.ALIGN_LEFT, button.getId());
-                textView.setLayoutParams(layoutParams);
-            }
-        });*/
-    //}
+    }*/
+
+
+
+
 
 }
