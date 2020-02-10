@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity implements View.OnClickListener {
 
     private int score;//retreive from userinfo class
     private int name;
@@ -31,6 +31,8 @@ public class GameActivity extends AppCompatActivity {
     private ArrayList<Button>   choice_bts;
     private TextView            t;
     private AlertDialog.Builder alert;
+
+    private DialogueFactory.Dialogue current_dialogue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +51,10 @@ public class GameActivity extends AppCompatActivity {
             }
         }*/
 
-        DialogueFactory.Dialogue d = DialogueFactory.dialogues.get(0);
+        this.current_dialogue = DialogueFactory.dialogues.get(0);
         this.choice_bts = new ArrayList<>();
-        this.create_the_dynamic_textview(d.question);
-        for (String choice : d.choices) {
+        this.create_the_dynamic_textview(this.current_dialogue.question);
+        for (String choice : this.current_dialogue.choices) {
             Button b = this.create_dynamic_button(choice);
             this.choice_bts.add(b);
         }
@@ -74,6 +76,21 @@ public class GameActivity extends AppCompatActivity {
             }
         });*/
 
+    }
+
+    //need to access current dialogue by "globals" class vars
+    @Override
+    public void onClick(View v) {
+        String choice_selected = (String)v.getTag();
+
+        if (choice_selected == this.current_dialogue.answer) {
+            // Good answer
+            Toast.makeText(this, "Correct", Toast.LENGTH_SHORT).show();
+            //mScore++;
+        } else {
+            // Wrong answer
+            Toast.makeText(this, "Wrong answer!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void layout_setup() {
@@ -116,7 +133,9 @@ public class GameActivity extends AppCompatActivity {
         LinearLayout.LayoutParams params = init_layout_params();
         b.setLayoutParams(params);
         b.setGravity(Gravity.CENTER);//corresponds ot text
+        b.setTag(txt_msg);
         b.setText(txt_msg);
+        b.setOnClickListener(this);
 
         return b;
     }
@@ -127,5 +146,40 @@ public class GameActivity extends AppCompatActivity {
         int w = ViewGroup.LayoutParams.MATCH_PARENT;
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(w, h);
         return params;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        System.out.println("GameActivity::onStart()");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        System.out.println("GameActivity::onResume()");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        System.out.println("GameActivity::onPause()");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        System.out.println("GameActivity::onStop()");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        System.out.println("GameActivity::onDestroy()");
     }
 }
