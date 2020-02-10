@@ -26,11 +26,10 @@ public class GameActivity extends AppCompatActivity {
     private int score;//retreive from userinfo class
     private int name;
 
-    private ArrayList<Button> buttons;
-    private Map<String, TextView> labels;
+    private LinearLayout        parent_layout;
+    private ArrayList<Button>   choice_bts;
+    private TextView            t;
     private AlertDialog.Builder alert;
-
-    private Button mPlayButton1, mPlayButton2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,32 +37,19 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
         //init for all
-        LinearLayout parent_layout = findViewById(R.id.dynamicContainer);
-        parent_layout.setOrientation(LinearLayout.VERTICAL);
-        int h = LinearLayout.LayoutParams.FILL_PARENT;
-        int w = LinearLayout.LayoutParams.FILL_PARENT;
-        ViewGroup.LayoutParams zl = new LinearLayout.LayoutParams(h, w);
-        parent_layout.setLayoutParams(zl);
+        this.layout_setup();
 
-        TextView t = create_dynamic_textview("n");
+        this.create_the_dynamic_textview("n");
+        Button b1 = this.create_dynamic_button("n");
+        Button b2 = this.create_dynamic_button("n");
 
-        Button b1 = create_dynamic_button("n");
-        Button b2 = create_dynamic_button("n");
+        //used fatsest queue possibkle to simply take out first
+        this.choice_bts = new ArrayList<>();
+        this.choice_bts.add(b1);
+        this.choice_bts.add(b2);
 
-        parent_layout.addView(t);
+        this.display_widgets();
 
-        parent_layout.addView(b1);
-        parent_layout.addView(b2);
-        setContentView(parent_layout);
-
-        /*
-        ArrayList<Button> bs = new ArrayList<Button>();
-
-        String btag = "00";
-        for (int i = 0; i < 3; i++) {
-            bs.add(create_dynamic_button("dynamic" + i, i));
-
-        }
 
         /*button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,68 +58,59 @@ public class GameActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
             }
         });*/
-        /*if (parent_layout != null){
-
-            parent_layout.addView(t);
-            parent_layout.addView(x);
-
-            /*for (Button b : bs)
-                parent_layout.addView(b);
-        }*/
 
     }
 
-    LinearLayout layout_setup() {
+    private void layout_setup() {
 
-        LinearLayout parent_layout = findViewById(R.id.dynamicContainer);
-        parent_layout.setOrientation(LinearLayout.VERTICAL);
+        this.parent_layout = findViewById(R.id.dynamicContainer);
+        this.parent_layout.setOrientation(LinearLayout.VERTICAL);
         int h = LinearLayout.LayoutParams.FILL_PARENT;
         int w = LinearLayout.LayoutParams.FILL_PARENT;
         ViewGroup.LayoutParams zl = new LinearLayout.LayoutParams(h, w);
-        parent_layout.setLayoutParams(zl);
-        return parent_layout;
+        this.parent_layout.setLayoutParams(zl);
     }
 
     //stock all widgets in a list
-    /*
-    void display_widgets(LinearLayout parent_layout) {
-        parent_layout.addView(t);
-        parent_layout.addView(q);
-        setContentView(parent_layout);
-    }*/
 
-    private TextView create_dynamic_textview(String txt_msg) {
+    private void display_widgets() {
 
-        TextView titleView = new TextView(this);
-        int h = ViewGroup.LayoutParams.WRAP_CONTENT;
-        int w = ViewGroup.LayoutParams.MATCH_PARENT;
-        LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(w, h);
-        params1.setMargins(0,50,0,200);
-        titleView.setLayoutParams(params1);
-        titleView.setGravity(Gravity.CENTER);
-        titleView.setTextColor(Color.GREEN);
-        titleView.setText("txt_msg");
-        return titleView;
+        this.parent_layout.addView(t);
+        for (Button b : this.choice_bts) {
+            parent_layout.addView(b);
+        }
+        setContentView(this.parent_layout);
+    }
+
+    private void create_the_dynamic_textview(String txt_msg) {
+
+        this.t = new TextView(this);
+
+        LinearLayout.LayoutParams params = init_layout_params();
+        params.setMargins(0,100,0,200);
+        this.t.setLayoutParams(params);
+        this.t.setGravity(Gravity.CENTER);
+        this.t.setTextColor(Color.GREEN);
+        this.t.setText("txt_msg");
     }
 
     private Button create_dynamic_button(String txt_msg) {
 
         Button b = new Button(this);
-        int h = ViewGroup.LayoutParams.WRAP_CONTENT;
-        int w = ViewGroup.LayoutParams.MATCH_PARENT;
-        LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(w, h);
-        b.setLayoutParams(params1);
+
+        LinearLayout.LayoutParams params = init_layout_params();
+        b.setLayoutParams(params);
         b.setGravity(Gravity.CENTER);//corresponds ot text
         b.setText("txt_msg");
+
         return b;
     }
 
-    /*private Button create_dynamic_button(String bt_msg) {
+    private LinearLayout.LayoutParams init_layout_params() {
 
-    }*/
-
-
-
-
-
+        int h = ViewGroup.LayoutParams.WRAP_CONTENT;
+        int w = ViewGroup.LayoutParams.MATCH_PARENT;
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(w, h);
+        return params;
+    }
 }

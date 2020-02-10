@@ -32,6 +32,16 @@ public class MainActivity extends AppCompatActivity {
 
         mPlayButton.setEnabled(false);
 
+        for (DialogueFactory.Dialogue d : DialogueFactory.dialogues) {
+            System.out.println();
+            System.out.println("GAME TURN");
+            System.out.println(d.question);
+            System.out.println(d.choices);
+            System.out.println(d.answer);
+        }
+
+
+
         Intent gameActivity = new Intent(MainActivity.this, GameActivity.class);
         startActivity(gameActivity);
 
@@ -57,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 System.out.println("clicked");
-                System.out.println(QuestionFactory.dialogue);
+                //System.out.println(QuestionFactory.dialogue);
 
                 Intent gameActivity = new Intent(MainActivity.this, GameActivity.class);
                 startActivity(gameActivity);
