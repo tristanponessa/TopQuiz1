@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.TopQuiz.R;
+import com.example.TopQuiz.model.DialogueFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,15 +39,29 @@ public class GameActivity extends AppCompatActivity {
 
         //init for all
         this.layout_setup();
+        /*
+        for (DialogueFactory.Dialogue d : DialogueFactory.dialogues) {
 
-        this.create_the_dynamic_textview("n");
-        Button b1 = this.create_dynamic_button("n");
-        Button b2 = this.create_dynamic_button("n");
+            this.create_the_dynamic_textview(d.question);
+
+            for (String choice : d.choices) {
+
+            }
+        }*/
+
+        DialogueFactory.Dialogue d = DialogueFactory.dialogues.get(0);
+        this.choice_bts = new ArrayList<>();
+        this.create_the_dynamic_textview(d.question);
+        for (String choice : d.choices) {
+            Button b = this.create_dynamic_button(choice);
+            this.choice_bts.add(b);
+        }
+
 
         //used fatsest queue possibkle to simply take out first
-        this.choice_bts = new ArrayList<>();
+        /*this.choice_bts = new ArrayList<>();
         this.choice_bts.add(b1);
-        this.choice_bts.add(b2);
+        this.choice_bts.add(b2);*/
 
         this.display_widgets();
 
@@ -91,7 +106,7 @@ public class GameActivity extends AppCompatActivity {
         this.t.setLayoutParams(params);
         this.t.setGravity(Gravity.CENTER);
         this.t.setTextColor(Color.GREEN);
-        this.t.setText("txt_msg");
+        this.t.setText(txt_msg);
     }
 
     private Button create_dynamic_button(String txt_msg) {
@@ -101,7 +116,7 @@ public class GameActivity extends AppCompatActivity {
         LinearLayout.LayoutParams params = init_layout_params();
         b.setLayoutParams(params);
         b.setGravity(Gravity.CENTER);//corresponds ot text
-        b.setText("txt_msg");
+        b.setText(txt_msg);
 
         return b;
     }
