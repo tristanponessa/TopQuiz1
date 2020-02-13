@@ -4,12 +4,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -23,6 +25,7 @@ import com.example.TopQuiz.model.DialogueFactory;
 import com.example.TopQuiz.model.UserInfo;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -31,11 +34,29 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private LinearLayout        parent_layout;
     private ArrayList<Button>   choice_bts;
     private TextView            t;
-    private AlertDialog.Builder alert;
+    private boolean             mEnableTouch;
 
     private UserInfo player1;
 
+    //iterator does not holld current
+    private Iterator dialogue_it;
     private DialogueFactory.Dialogue current_dialogue;
+
+    //name it to determined toast pauses app while alive
+    static class SingleToast {
+
+        private static Toast mToast;//why static got from int
+
+        public static void show(Context context, String text, int duration) {
+            if (mToast == null) {
+                mToast = Toast.makeText(context, text, duration);
+                mToast.show();
+                while (mToast.getView().isShown())
+                    System.out.println("counting");
+
+            }
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +64,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_game);
 
         this.layout_setup();
+        this.mEnableTouch = true;
 
-        this.current_dialogue = DialogueFactory.dialogues.get(0);
+        this.dialogue_it = DialogueFactory.dialogues.iterator();
+
+        run_dialogue();
+        //dialogue_nb = 0;
+
+        /*this.current_dialogue = DialogueFactory.dialogues.get(0);
         this.choice_bts = new ArrayList<>();
         this.create_the_dynamic_textview(this.current_dialogue.question);
         for (String choice : this.current_dialogue.choices) {
@@ -52,32 +79,65 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             this.choice_bts.add(b);
         }
 
-        this.display_widgets();
+        this.display_widgets();*/
     }
 
-    //need to access current dialogue by "globals" class vars
-    @Override
-    public void onClick(View v) {
+    private void run_dialogue() {
+
+        this.mEnableTouch = true;
+        if (this.dialogue_it.hasNext()) {
+
+            this.current_dialogue = (DialogueFactory.Dialogue)this.dialogue_it.next();
+            this.choice_bts = new ArrayList<>();
+            this.create_the_dynamic_textview(this.current_dialogue.question);
+            for (String choice : this.current_dialogue.choices) {
+                Button b = this.create_dynamic_button(choice);
+                this.choice_bts.add(b);
+            }
+            this.display_widgets();
+        }
+        else
+            run_endgame_dialogue_box();
+    }
+
+    private boolean check_proposal(View v) {
         String choice_selected = (String)v.getTag();
 
         if (choice_selected == this.current_dialogue.answer) {
             // Good answer
-            Toast.makeText(this, "Correct", Toast.LENGTH_SHORT).show();
-            this.delete_widgets();
-            this.do_sleep(1000);
+
+            //add suspend toast thinking.... fun phrases , sleep
+            //Toast.makeText(this, "Correct", Toast.LENGTH_SHORT).show();
+            //this.do_sleep(1500); //should i put in toast class?
+            SingleToast.show(this, "Correct", Toast.LENGTH_SHORT);
             player1.fluctuateScore('+', 1);
-
-            this.dynamic_dialogue_box("y");
-
-
-            //finish();
-
-            //disactivate touch
-            //mScore++;
+            return true;
         } else {
-            // Wrong answer
-            Toast.makeText(this, "Wrong answer!", Toast.LENGTH_SHORT).show();
+            this.do_sleep(1000);
+            SingleToast.show(this, "Wrong answer!!", Toast.LENGTH_SHORT);
+
+            //Toast.makeText(this, "Wrong answer!", Toast.LENGTH_SHORT).show();
+            return false;
         }
+    }
+
+
+    //need to access current dialogue by "globals" class vars
+    @Override
+    public void onClick(View v) {
+
+        this.mEnableTouch = false;
+        if (check_proposal(v)) {
+            delete_widgets();
+            run_dialogue();
+        }
+        this.mEnableTouch = true;
+    }
+
+    //controls button press
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        return mEnableTouch && super.dispatchTouchEvent(ev);
     }
 
     private void layout_setup() {
@@ -131,11 +191,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         this.parent_layout.removeAllViews();
     }
 
-    private void dynamic_dialogue_box(String msg) {
+    private void run_endgame_dialogue_box() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        builder.setTitle("Well done!")
-                .setMessage("Your score is " + "9999")
+        builder.setTitle("Well done! " + player1.getName())
+                .setMessage("Your score is " + player1.getScore())
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -178,7 +238,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     private void retreive_data_from_MainActivity() {
 
-        Intent main_intent = getIntent();
+        Intent main_intent = getIntent();//returns intent that started this activity
         Bundle extras = main_intent.getExtras();
         player1 = (UserInfo) extras.get(Ids.BUNDLE_EXTRA_USER);
 
@@ -188,9 +248,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     private void send_data_to_MainActivity() {
 
-        Intent game_intent = new Intent();
-        game_intent.putExtra(Ids.BUNDLE_EXTRA_USER, player1);
-        setResult(RESULT_OK, game_intent);
+        Intent data_intent = new Intent(GameActivity.this, MainActivity.class);
+        data_intent.putExtra(Ids.BUNDLE_EXTRA_USER, player1);
+        setResult(RESULT_OK, data_intent);
 
         System.out.println("SE from game" + this.player1.getName());
         System.out.println("SE from game" + this.player1.getScore());

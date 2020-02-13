@@ -68,14 +68,6 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("SE from main" + this.player1.getScore());
     }
 
-    private Intent send_data_to_GameActivity() {
-
-        Intent gameActivity = new Intent(MainActivity.this, GameActivity.class);
-        player1 = new UserInfo(mNameInput.getText().toString(), 0);
-        gameActivity.putExtra(Ids.BUNDLE_EXTRA_USER, player1);
-        return gameActivity;
-    }
-
     private void retreive_data_from_GameActivity(int requestCode, int resultCode, Intent game_intent) {
 
         if (Ids.GAME_ACTIVITY_REQUEST_CODE == requestCode && RESULT_OK == resultCode) {
@@ -86,6 +78,15 @@ public class MainActivity extends AppCompatActivity {
             System.out.println("RE from game" + this.player1.getName());
             System.out.println("RE from game" + this.player1.getScore());
         }
+    }
+
+    private Intent send_data_to_GameActivity() {
+
+        player1 = new UserInfo(mNameInput.getText().toString(), 0);
+
+        Intent gameActivity = new Intent(MainActivity.this, GameActivity.class);
+        gameActivity.putExtra(Ids.BUNDLE_EXTRA_USER, player1);
+        return gameActivity;
     }
 
     //runs once game activity closes with finish()
