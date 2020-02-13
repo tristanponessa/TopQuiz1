@@ -4,8 +4,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.TopQuiz.R;
 import com.example.TopQuiz.model.DialogueFactory;
+import com.example.TopQuiz.model.UserInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,13 +28,12 @@ import java.util.Map;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private int score;//retreive from userinfo class
-    private int name;
-
     private LinearLayout        parent_layout;
     private ArrayList<Button>   choice_bts;
     private TextView            t;
     private AlertDialog.Builder alert;
+
+    private UserInfo player1;
 
     private DialogueFactory.Dialogue current_dialogue;
 
@@ -39,17 +42,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        //init for all
         this.layout_setup();
-        /*
-        for (DialogueFactory.Dialogue d : DialogueFactory.dialogues) {
-
-            this.create_the_dynamic_textview(d.question);
-
-            for (String choice : d.choices) {
-
-            }
-        }*/
 
         this.current_dialogue = DialogueFactory.dialogues.get(0);
         this.choice_bts = new ArrayList<>();
@@ -59,23 +52,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             this.choice_bts.add(b);
         }
 
-
-        //used fatsest queue possibkle to simply take out first
-        /*this.choice_bts = new ArrayList<>();
-        this.choice_bts.add(b1);
-        this.choice_bts.add(b2);*/
-
         this.display_widgets();
-
-
-        /*button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(GameActivity.this, "This button is created dynamically",
-                        Toast.LENGTH_SHORT).show();
-            }
-        });*/
-
     }
 
     //need to access current dialogue by "globals" class vars
@@ -86,6 +63,16 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         if (choice_selected == this.current_dialogue.answer) {
             // Good answer
             Toast.makeText(this, "Correct", Toast.LENGTH_SHORT).show();
+            this.delete_widgets();
+            this.do_sleep(1000);
+            player1.fluctuateScore('+', 1);
+
+            this.dynamic_dialogue_box("y");
+
+
+            //finish();
+
+            //disactivate touch
             //mScore++;
         } else {
             // Wrong answer
@@ -140,6 +127,27 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         return b;
     }
 
+    private void delete_widgets() {
+        this.parent_layout.removeAllViews();
+    }
+
+    private void dynamic_dialogue_box(String msg) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Well done!")
+                .setMessage("Your score is " + "9999")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        send_data_to_MainActivity();
+                        finish();
+                    }
+                })
+                .create()
+                .show();
+    }
+
     private LinearLayout.LayoutParams init_layout_params() {
 
         int h = ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -148,10 +156,50 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         return params;
     }
 
+    private void do_sleep(final int ms) {
+
+        Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(ms);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    private void retreive_data_from_MainActivity() {
+
+        Intent main_intent = getIntent();
+        Bundle extras = main_intent.getExtras();
+        player1 = (UserInfo) extras.get(Ids.BUNDLE_EXTRA_USER);
+
+        System.out.println("RE from main" + this.player1.getName());
+        System.out.println("RE from main" + this.player1.getScore());
+    }
+
+    private void send_data_to_MainActivity() {
+
+        Intent game_intent = new Intent();
+        game_intent.putExtra(Ids.BUNDLE_EXTRA_USER, player1);
+        setResult(RESULT_OK, game_intent);
+
+        System.out.println("SE from game" + this.player1.getName());
+        System.out.println("SE from game" + this.player1.getScore());
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
-
+        retreive_data_from_MainActivity();
         System.out.println("GameActivity::onStart()");
     }
 

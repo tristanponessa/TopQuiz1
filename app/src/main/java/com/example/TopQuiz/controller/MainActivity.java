@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText mNameInput;
     private Button mPlayButton;
 
+    private UserInfo player1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,18 +34,6 @@ public class MainActivity extends AppCompatActivity {
 
         mPlayButton.setEnabled(false);
 
-        for (DialogueFactory.Dialogue d : DialogueFactory.dialogues) {
-            System.out.println();
-            System.out.println("GAME TURN");
-            System.out.println(d.question);
-            System.out.println(d.choices);
-            System.out.println(d.answer);
-        }
-
-
-
-        Intent gameActivity = new Intent(MainActivity.this, GameActivity.class);
-        startActivity(gameActivity);
 
         mNameInput.addTextChangedListener(new TextWatcher() {
             @Override
@@ -62,21 +52,45 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         mPlayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("clicked");
-                //System.out.println(QuestionFactory.dialogue);
-
-                Intent gameActivity = new Intent(MainActivity.this, GameActivity.class);
-                startActivity(gameActivity);
-                //
+                start_game_activity();
             }
         });
+    }
 
+    private void start_game_activity() {
+        Intent gameActivity = send_data_to_GameActivity();
+        startActivityForResult(gameActivity, Ids.GAME_ACTIVITY_REQUEST_CODE);
 
+        System.out.println("SE from main" + this.player1.getName());
+        System.out.println("SE from main" + this.player1.getScore());
+    }
 
-        //setContentView(R.layout.activity_main);
+    private Intent send_data_to_GameActivity() {
+
+        Intent gameActivity = new Intent(MainActivity.this, GameActivity.class);
+        player1 = new UserInfo(mNameInput.getText().toString(), 0);
+        gameActivity.putExtra(Ids.BUNDLE_EXTRA_USER, player1);
+        return gameActivity;
+    }
+
+    private void retreive_data_from_GameActivity(int requestCode, int resultCode, Intent game_intent) {
+
+        if (Ids.GAME_ACTIVITY_REQUEST_CODE == requestCode && RESULT_OK == resultCode) {
+
+            Bundle extras = game_intent.getExtras();
+            player1 = (UserInfo) extras.get(Ids.BUNDLE_EXTRA_USER);
+
+            System.out.println("RE from game" + this.player1.getName());
+            System.out.println("RE from game" + this.player1.getScore());
+        }
+    }
+
+    //runs once game activity closes with finish()
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        retreive_data_from_GameActivity(requestCode, resultCode, data);
     }
 }
