@@ -41,6 +41,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     //iterator does not holld current
     private Iterator dialogue_it;
     private DialogueFactory.Dialogue current_dialogue;
+    private int wrong_answer_count;
 
     //name it to determined toast pauses app while alive
     static class SingleToast {
@@ -48,15 +49,29 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         private static Toast mToast;//why static got from int
 
         public static void show(Context context, String text, int duration) {
-            if (mToast == null) {
-                mToast = Toast.makeText(context, text, duration);
-                mToast.show();
-                while (mToast.getView().isShown())
-                    System.out.println("counting");
+            cancel();
+            System.out.println("TOAST CANCEL");
+            System.out.println(mToast);
 
+            mToast = Toast.makeText(context, text, duration);
+            mToast.show();
+            System.out.println("TOAST created");
+            System.out.println(mToast);
+        }
+
+        public static void cancel() {
+            if (mToast != null) {
+                mToast.cancel(); //destory wrong answer to right answer
+                mToast = null;
             }
         }
     }
+
+
+    /*protected void onSaveInstanceState(Bundle outState) {
+        outState.put(Ids.BUNDLE_STATE_USER, player1);
+        super.onSaveInstanceState(outState);
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,17 +84,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         this.dialogue_it = DialogueFactory.dialogues.iterator();
 
         run_dialogue();
-        //dialogue_nb = 0;
-
-        /*this.current_dialogue = DialogueFactory.dialogues.get(0);
-        this.choice_bts = new ArrayList<>();
-        this.create_the_dynamic_textview(this.current_dialogue.question);
-        for (String choice : this.current_dialogue.choices) {
-            Button b = this.create_dynamic_button(choice);
-            this.choice_bts.add(b);
-        }
-
-        this.display_widgets();*/
     }
 
     private void run_dialogue() {
@@ -101,37 +105,44 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private boolean check_proposal(View v) {
+
         String choice_selected = (String)v.getTag();
 
         if (choice_selected == this.current_dialogue.answer) {
-            // Good answer
 
-            //add suspend toast thinking.... fun phrases , sleep
-            //Toast.makeText(this, "Correct", Toast.LENGTH_SHORT).show();
-            //this.do_sleep(1500); //should i put in toast class?
-            SingleToast.show(this, "Correct", Toast.LENGTH_SHORT);
+            wrong_answer_count = 0;
+            SingleToast.show(GameActivity.this, "Correct...", Toast.LENGTH_SHORT);
             player1.fluctuateScore('+', 1);
             return true;
-        } else {
-            this.do_sleep(1000);
-            SingleToast.show(this, "Wrong answer!!", Toast.LENGTH_SHORT);
 
-            //Toast.makeText(this, "Wrong answer!", Toast.LENGTH_SHORT).show();
+        } else {
+            wrong_answer_count++;
+            SingleToast.show(this, "Wrong answer!!!", Toast.LENGTH_SHORT);
             return false;
         }
     }
-
 
     //need to access current dialogue by "globals" class vars
     @Override
     public void onClick(View v) {
 
-        this.mEnableTouch = false;
-        if (check_proposal(v)) {
-            delete_widgets();
-            run_dialogue();
+        //this.mEnableTouch = false;
+        /*if (wrong_answer_count == 3) {
+            wrong_answer_count = 0;
+            mEnableTouch = false;
+            SingleToast.show(this, "<cheater> wait 3 seconds", Toast.LENGTH_SHORT);
+
+        }*/
+
+        boolean x = check_proposal(v);
+        if (x) {
+
+            ArrayList<Runnable> ps = new ArrayList<>();
+            ps.add(() -> delete_widgets());
+            ps.add(() -> run_dialogue());
+            run_processes(ps, 2100);
         }
-        this.mEnableTouch = true;
+        //this.mEnableTouch = true;
     }
 
     //controls button press
@@ -216,24 +227,25 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         return params;
     }
 
-    private void do_sleep(final int ms) {
+    private void run_processes(ArrayList<Runnable> ps, int ms) {
 
         Handler handler = new Handler();
-        handler.post(new Runnable() {
+        handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         try {
-                            Thread.sleep(ms);
-                        } catch (InterruptedException e) {
+                            for (Runnable p : ps)
+                                p.run();
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
                 });
             }
-        });
+        }, ms);
     }
 
     private void retreive_data_from_MainActivity() {

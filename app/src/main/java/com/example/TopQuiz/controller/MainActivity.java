@@ -4,6 +4,7 @@ import com.example.TopQuiz.model.*;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -23,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
 
     private UserInfo player1;
 
+    private SharedPreferences mPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +36,12 @@ public class MainActivity extends AppCompatActivity {
         mPlayButton = (Button) findViewById(R.id.activity_main_play_btn);
 
         mPlayButton.setEnabled(false);
+
+        mPreferences = getPreferences(MODE_PRIVATE);
+
+
+        mGreetingText.setText("Watsup?!");
+        greetUser();
 
 
         mNameInput.addTextChangedListener(new TextWatcher() {
@@ -55,9 +64,27 @@ public class MainActivity extends AppCompatActivity {
         mPlayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                mPreferences.edit().putString(Ids.PREF_KEY_USER, "Bongo").apply();
                 start_game_activity();
+
             }
         });
+    }
+
+    private void greetUser() {
+        String firstname = mPreferences.getString(Ids.PREF_KEY_USER, null);
+
+        if (null != firstname) {
+
+            String fulltext = "Welcome back, " + firstname
+                    + "!\nYour last score was ?"
+                    + ", will you do better this time?";
+            mGreetingText.setText(fulltext);
+            mNameInput.setText(firstname);
+            mNameInput.setSelection(firstname.length());
+            mPlayButton.setEnabled(true);
+        }
     }
 
     private void start_game_activity() {
