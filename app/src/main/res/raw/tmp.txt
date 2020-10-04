@@ -1,0 +1,746 @@
+
+
+
+s = \
+    """
+    ;https://www.examsbook.com/computer-general-knowledge-quiz-questions-and-answers/3
+    [.Which is the part of the computer system that one can physically touch?]
+    (A) data
+    (A) operating systems
+    (A) hardware=answer
+    (A) software
+    [A ………. is an electronic device that process data, converting it into information.]
+    (A) computer
+
+    (B) processor
+
+    (C) case
+
+    (D) stylus
+    [Q.3. IC chips used in computers are usually made of:
+
+    (A) Lead
+
+    (B) Silicon
+
+    (C) Chromium
+
+    (D) Gold
+
+    Show Answer
+
+
+    [Q.4. Which of the following is not an example of an Operating System?
+
+    (A) Windows 98
+
+    (B) BSD Unix
+
+    (C) Microsoft Office XP
+
+    (D) Red Hat Linux
+
+    Show Answer
+
+
+    [Q.5. One Gigabyte is approximately equal is:
+
+    (A) 1000,000 bytes
+
+    (B) 1000,000,000 bytes
+
+    (C) 1000,000,000,000 bytes
+
+    (D) None of these
+
+    Show Answer
+
+
+    [Q.6. Compact discs, (according to the original CD specifications) hold how many minutes of music?
+
+    (A) 74 mins
+
+    (B) 90 mins
+
+    (C) 56 mins
+
+    (D) 60 mins
+
+    Show Answer
+
+
+    [Q.7. Which of the following is not an input device?
+
+    (A) Mouse
+
+    (B) Light pen
+
+    (C) Keyboard
+
+    (D) VDU
+
+    Show Answer
+
+
+    [Q.8. What type of process creates a smaller file that is faster to transfer over the internet?
+
+    (A) Compression
+
+    (B) Fragmentation
+
+    (C) Encapsulation
+
+    (D) None of the above
+
+    Show Answer
+
+
+    [Q.9. Which of the following is used to Manage DataBase?
+
+    1) Operating System
+
+    2) Compiler
+
+    3) DBMS
+
+    4) None of the above
+
+    Show Answer
+
+
+    [Q.10. Which of the following is an example of non-volatile memory?
+
+    (A) Cache memory
+
+    (B) RAM
+
+    (C) ROM
+
+    (D) None of the above
+
+    [Q.11.File extensions are used in order to ……….
+
+    (A) Name the file
+
+    (B) Ensure the filename is not lost
+
+    (C) Identify the file
+
+    (D) Identify the file type
+
+    Show Answer
+
+
+    [Q.12.here are …………. parts to a computer system.
+
+    (A) 2
+
+    (B) 4
+
+    (C) 16
+
+    (D) 100
+
+    Show Answer
+
+
+    [Q.13.During the ………… portion of the Information Processing Cycle, the computer acquires data from some source.
+
+    (A) processing
+
+    (B) storage
+
+    (C) input
+
+    (D) output
+
+    Show Answer
+
+
+    [Q.14.bit stands for
+
+    (A) binary information term
+
+    (B) binary digit
+
+    (C) binary tree
+
+    (D) Bivariate Theory
+
+    Show Answer
+
+
+    [Q.15.Which one of the following is different from other members?
+
+    (A) Google
+
+    (B) Windows
+
+    (C) Linux
+
+    (D) Mac
+
+    Show Answer
+
+
+    [Q.16.The hexadecimal number system consists of the symbols
+
+    (A) 0 – 7
+
+    (B) 0 – 9 , A – F
+
+    (C) 0 – 7, A – F
+
+    (D) None of these
+
+    Show Answer
+
+
+    [Q.17.1 GB is equal to
+
+    (A) 230 bits
+
+    (B) 230 bytes
+
+    (C) 220 bits
+
+    (D) 220 bytes
+
+    Show Answer
+
+
+    [Q.18.A microprocessor unit, a memory unit, and an input/output unit form a:
+
+    (A) CPU
+
+    (B) compiler
+
+    (C) microcomputer
+
+    (D) ALU
+
+    Show Answer
+
+
+    [Q.19.Process to exit from computer by giving correct instructions such as 'EXIT' is classified as:
+
+    (A) log in
+
+    (B) process out
+
+    (C) process in
+
+    (D) log out
+
+    Show Answer
+
+
+    [Q.20.Function of running and loading programs by use of peripherals is function of
+
+    (A) operating system
+
+    (B) inquiry system
+
+    (C) dump programs
+
+    (D) function system
+
+    [Q.21.An assembler is
+
+    (A) Programming language-dependent.
+
+    (B) Syntax dependant.
+
+    (C) Machine dependant.
+
+    (D) Data dependant.
+
+    Show Answer
+
+
+    [Q.22.Which amongst the following is not an advantage of Distributed systems?
+
+    (A) Reliability
+
+    (B) Incremental growth
+
+    (C) Resource sharing
+
+    (D) None of the above
+
+    Show Answer
+
+
+    [Q.23.The term ‘page traffic’ describes
+
+    (A) Number of pages in memory at a given instant.
+
+    (B) Number of papers required to be brought in at a given page request.
+
+    (C) The movement of pages in and out of memory.
+
+    (D) Number of pages of executing programs loaded in memory.
+
+    Show Answer
+
+
+    [Q.24.Assembler is
+
+    (A) A program that places programs into memory an prepares them for execution
+
+    (B) Is a program that appears to execute a source program as if it were machine language
+
+    (C) A program that automates the translation of assembly language into machine language
+
+    (D) A program that accepts a program written in high-level language and produces an object program
+
+    Show Answer
+
+
+    [Q.25 An interpreter is
+
+    (A) A program that places programs into memory an prepares them for execution
+
+    (B) A program that appears to execute a source program as if it were machine language
+
+    (C) A program that automates the translation of assembly language into machine language
+
+    (D) A program that accepts a program written in high-level language and produces an object program
+
+    Show Answer
+
+
+    [Q.26.How many buses are connected as part of the 8085 microprocessor?
+
+    (A) 2
+
+    (B) 3
+
+    (C) 5
+
+    (D) 8
+
+    Show Answer
+
+
+    [Q.27. How many bits are used in the data bus?
+
+    (A) 7
+
+    (B) 8
+
+    (C) 9
+
+    (D) 16
+
+    Show Answer
+
+    [Q.28. What would you do to highlight a word? You position the cursor next to the word, and then
+
+    (A) Drag mouse while holding button down
+
+    (B) Click mouse once
+
+    (C) Roll and then click mouse
+
+    (D) None of these
+
+    Show Answer
+
+
+    [Q.29. Reusable optical storage will typically have the acronym ………..
+
+    (A) CD
+
+    (B) DVD
+
+    (C) ROM
+
+    (D) RW
+
+    Show Answer
+
+
+    [Q.30..……………. is processed by the computer into information.
+
+    (A) Data
+
+    (B) Numbers
+
+    (C) Alphabets
+
+    (D) Pictures
+
+    [Q.31. One kilobyte is equal to:
+
+    (A) 1000 bytes
+
+    (B) 100 bytes
+
+    (C) 1024 bytes
+
+    (D) 1023 bytes
+
+    Show Answer
+
+
+    [Q.32. Which supercomputer is developed by the Indian Scientists?
+
+    (A) Param
+
+    (B) Super 301
+
+    (C) Compaq Presario
+
+    (D) CRAY YMP
+
+    Show Answer
+
+
+    [Q.33. In binary code, the number 7 is written as -
+
+    (A) 110
+
+    (B) 111
+
+    (C) 101
+
+    (D) 100
+
+    Show Answer
+
+
+    [Q.34. In which generation of computers, transistors were used?
+
+    (A) First
+
+    (B) Second
+
+    (C) Third
+
+    (D) Fourth
+
+    Show Answer
+
+
+    [Q.35. 'ALU' stands for?
+
+    (A) Arithmetic Long Unit
+
+    (B) All Longer Units
+
+    (C) Around Logical Units
+
+    (D) Arithmetic and Logical Units
+
+    Show Answer
+
+
+    [Q.36. The term 'Pentium' is related to -
+
+    (A) DVD
+
+    (B) Hard Disk
+
+    (C) Microprocessor
+
+    (D) Mouse
+
+    Show Answer
+
+
+    [Q.37. Which of the following is the most powerful type of computer?
+
+    (A) Super-micro
+
+    (B) Super Computer
+
+    (C) Micro Computer
+
+    (D) Mini Computer
+
+    Show Answer
+
+
+    [Q.38.The most common type of storage devices are ………….
+
+    (A) persistent
+
+    (B) optical
+
+    (C) magnetic
+
+    (D) flash
+
+    Show Answer
+
+
+    [Q.39.The ………… tells the computer how to use its components.
+
+    (A) utility
+
+    (B) network
+
+    (C) operating system
+
+    (D) motherboard
+
+    Show Answer
+
+
+    [Q.40.Which one of the following is not a linear data structure?
+
+    (A) Array
+
+    (B) Binary Tree
+
+    (C) Queue
+
+    (D) Stack
+
+
+    [Q.41.Where does a computer add and compare its data?
+
+    (A) CPU
+
+    (B) Memory
+
+    (C) Hard disk
+
+    (D) Floppy disk
+
+    Show Answer
+
+
+    [Q.42.Which one of the following is not an Internet Service Provider (ISP)?
+
+    (A) MTNL
+
+    (B) BSNL
+
+    (C) ERNET India
+
+    (D) Infotech India Ltd.
+
+    Show Answer
+
+
+    [Q.43.The binary equivalent of (–15)10 is (2’s complement system is used)
+
+    (A) 11110001
+
+    (B) 11110000
+
+    (C) 10001111
+
+    (D) None of these
+
+    Show Answer
+
+
+    [Q.44.The set of computer programs that manage the hardware/software of a computer is called
+
+    (A) Compiler system
+
+    (B) Operation system
+
+    (C) Operating system
+
+    (D) None of these
+
+    Show Answer
+
+
+    [Q.45. Program which is readily available for computer users as a part of software package is classified as
+
+    (A) library program
+
+    (B) program library
+
+    (C) software library
+
+    (D) directory library
+
+    Show Answer
+
+
+    [Q.46.Set of software authorized to a specific user is considered as
+
+    (A) software library
+
+    (B) program library
+
+    (C) directory library
+
+    (D) library package
+
+    Show Answer
+
+
+    [Q.47. If program can cope data errors, such program can be termed as
+
+    (A) robust
+
+    (B) reliable
+
+    (C) unreliable
+
+    (D) stable functioning
+
+    Show Answer
+
+
+    [Q.48.Which of the following is not a fundamental process state
+
+    (A) Ready
+
+    (B) Terminated
+
+    (C) Executing
+
+    (D) Blocked
+
+    Show Answer
+
+
+    [Q.49. Which of the following is true?
+
+    (A) Block cipher technique is an encryption technique.
+
+    (B) Steam cipher technique is an encryption technique.
+
+    (C) Both (A) and (B).
+
+    (D) Neither of (A) and (B).
+
+    Show Answer
+
+
+    [Q.50. Which of the following loader is executed when a system is first turned on or restarted
+
+    (A) Bootloader
+
+    (B) Compile and Go loader
+
+    (C) Bootstrap loader
+
+    (D) Relating loader
+
+    [Q.51.Storage mapping is done by
+
+    (A) Linker
+
+    (B) Compiler
+
+    (C) Loader
+
+    (D) Operating system
+
+    Answer & Explanation
+
+    Show Answer
+
+
+    [Q.52.Forward reference table(FRT) is arranged like -
+
+    (A) Stack
+
+    (B) Queue
+
+    (C) Linked list
+
+    (D) Double linked list
+
+    Show Answer
+
+
+    [Q.53. Worldwide web was proposed by:
+
+    (A) Bill Gates
+
+    (B) Bill Rogers
+
+    (C) Tim Berners Lee
+
+    (D) None of Above
+
+    Show Answer
+
+
+    [Q.54.Which of the following derivation a top-down parser use while parsing an input string? The input is assumed to be scanned in left to right order?
+
+    (A) Leftmost derivation
+
+    (B) Rightmost derivation
+
+    (C) Leftmost derivation traced out in reverse
+
+    (D) Rightmost derivation traced out in reverse
+
+    Show Answer
+
+
+    [Q.55. Which of the following is not a computer bus?
+
+    (A) data bus
+
+    (B) timer bus
+
+    (C) control bus
+
+    (D) address bus
+
+    Show Answer
+
+
+    [Q.56. The technique of assigning a memory address to each I/O device in the SAM system is called:
+
+    (A) wired I/O
+
+    (B) I/O mapping
+
+    (C) dedicated I/O
+
+    (D) memory-mapped I/O
+
+    Show Answer
+
+
+    [Q.57. A port can be:
+
+    (A) strictly for input
+
+    (B) strictly for output
+
+    (C) bidirectional
+
+    (D) all the above
+    """
+
+
+ss = s.split('\n')
+for ll in ss:
+    l = ll.lstrip(' ')
+    if '[' in l and ']' not in l:
+        if 'Q.' in l:
+            l = l[l.index('.'):]
+        print('[' + l + ']')
+    if len(l) > 3 and (l[1] == ')' or l[2] == ')'):
+        print(l[4:] + '=')
+    #if l == '' or l.isspace() or 'Show Answer' in l:
+    #pass
+    #else:
+    #    print(l)
+
+"""
+f = sys.argv[1]
+with open(f, 'r') as ff:
+    ls = ff.readlines()
+for i in range(len(ls)):
+    if ls[i][0] == '[':
+        ls[i] = ls[i] + ']'
+    print(ls[i])
+"""
+
+
+

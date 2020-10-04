@@ -35,13 +35,15 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private ArrayList<Button>   choice_bts;
     private TextView            t;
     private boolean             mEnableTouch;
+    //int def_nb_lives = 5;
+    //int nb_lives = 5;
 
     private UserInfo player1;
 
     //iterator does not holld current
     private Iterator dialogue_it;
     private DialogueFactory.Dialogue current_dialogue;
-    private int wrong_answer_count;
+
 
     //name it to determined toast pauses app while alive
     static class SingleToast {
@@ -110,14 +112,15 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         if (choice_selected == this.current_dialogue.answer) {
 
-            wrong_answer_count = 0;
-            SingleToast.show(GameActivity.this, "Correct...", Toast.LENGTH_SHORT);
+
+            SingleToast.show(GameActivity.this, "Correct! +1 point", Toast.LENGTH_SHORT);
             player1.fluctuateScore('+', 1);
             return true;
 
         } else {
-            wrong_answer_count++;
+
             SingleToast.show(this, "Wrong answer!!!", Toast.LENGTH_SHORT);
+
             return false;
         }
     }
@@ -134,14 +137,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         }*/
 
-        boolean x = check_proposal(v);
-        if (x) {
+        check_proposal(v);
+        ArrayList<Runnable> ps = new ArrayList<>();
+        ps.add(() -> delete_widgets());
+        ps.add(() -> run_dialogue());
+        run_processes(ps, 2100);
 
-            ArrayList<Runnable> ps = new ArrayList<>();
-            ps.add(() -> delete_widgets());
-            ps.add(() -> run_dialogue());
-            run_processes(ps, 2100);
-        }
         //this.mEnableTouch = true;
     }
 
@@ -177,10 +178,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         this.t = new TextView(this);
 
         LinearLayout.LayoutParams params = init_layout_params();
-        params.setMargins(0,100,0,200);
+        params.setMargins(0,20,0,50);
         this.t.setLayoutParams(params);
         this.t.setGravity(Gravity.CENTER);
-        this.t.setTextColor(Color.GREEN);
+        this.t.setTextColor(Color.rgb(4, 107, 23));
         this.t.setText(txt_msg);
     }
 
@@ -200,12 +201,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     private void delete_widgets() {
         this.parent_layout.removeAllViews();
+
     }
 
     private void run_endgame_dialogue_box() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        builder.setTitle("Well done! " + player1.getName())
+        builder.setTitle("Programor! " + player1.getName())
                 .setMessage("Your score is " + player1.getScore())
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override

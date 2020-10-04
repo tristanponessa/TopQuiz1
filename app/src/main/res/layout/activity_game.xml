@@ -5,7 +5,4 @@
     android:id="@+id/dynamicContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".controller.GameActivity">
-
-
-</LinearLayout>
+    tools:context=".controller.GameActivity"/>

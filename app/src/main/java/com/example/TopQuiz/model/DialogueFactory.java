@@ -43,7 +43,7 @@ public class DialogueFactory {
 
         public String            question;
         public ArrayList<String> choices;//find another collection , must be inmutable
-        public String            answer;
+        public String            answer = "?";
     }
 
     static {
@@ -74,7 +74,7 @@ public class DialogueFactory {
                     String choice = sentry.getKey();
                     String is_answer = sentry.getValue();
 
-                    if (is_answer.equals("Answer"))
+                    if (is_answer.equals("1"))
                         d.answer = choice;
 
                     d.choices.add(choice);
